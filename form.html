@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registration Form</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: url('https://th-i.thgim.com/public/brandhub/1q65px/article66543846.ece/alternates/LANDSCAPE_1200/Image.jpg') no-repeat center center fixed;
+    background-size: cover;
+  }
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+  h1 {
+    color: #333;
+  }
+  form {
+    text-align: left;
+  }
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  input, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  input[type="submit"] {
+    background-color: #66ccff;
+    color: white;
+    cursor: pointer;
+  }
+  nav {
+    text-align: center;
+    margin-top: 20px;
+  }
+  nav a {
+    color: #333;
+    text-decoration: none;
+    margin: 0 15px;
+  }
+  nav a:hover {
+    color: #66ccff;
+  }
+  .dashboard {
+    margin-top: 40px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+  }
+  .logo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 120px;
+    height: auto;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://mitwpu.edu.in/uploads/logo/62d936ea919eb1658402538.png" alt="Logo" class="logo">
+    <h1>Registration Form</h1>
+    <p>Fill the details</p>
+    <form id="registrationForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required onkeydown="return /[a-zA-Z]/i.test(event.key)">
+      
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" name="dob" required>
+      
+      <label for="place">Place:</label>
+      <input type="text" id="place" name="place" required>
+      
+      <label for="address">Address:</label>
+      <input type="text" id="address" name="address" required>
+      
+      <label for="pincode">Pincode:</label>
+      <input type="number" id="pincode" name="pincode" required>
+      
+      <label for="mobile">Mobile Number:</label>
+      <input type="tel" id="mobile" name="mobile" required>
+      
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="email" required>
+      
+      <label for="documents">Upload Documents:</label>
+      <input type="file" id="documents" name="documents">
+      
+      <label for="verify">I have verified all the details and I want to submit them:</label>
+      <input type="checkbox" id="verify" name="verify" required>
+      
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Contact Us</a>
+  </nav>
+  <div class="dashboard">
+    <h2>Dashboard</h2>
+    <p>Loading...</p>
+  </div>
+
+  <!-- Include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- jQuery Form Validation -->
+  <script>
+    $(document).ready(function () {
+      $("#registrationForm").submit(function (e) {
+        e.preventDefault();
+
+        // Reset previous error messages
+        $(".error").remove();
+
+        // Perform form validation
+        let isValid = true;
+
+        // Name validation
+        const name = $("#name").val();
+        if (!name) {
+          $("<p class='error'>Name is required</p>").insertAfter("#name");
+          isValid = false;
+        }
+
+        // Date of Birth validation
+        const dob = $("#dob").val();
+        if (!dob) {
+          $("<p class='error'>Date of Birth is required</p>").insertAfter("#dob");
+          isValid = false;
+        }
+
+        // Place validation
+        const place = $("#place").val();
+        if (!place) {
+          $("<p class='error'>Place is required</p>").insertAfter("#place");
+          isValid = false;
+        }
+
+        // Address validation
+        const address = $("#address").val();
+        if (!address) {
+          $("<p class='error'>Address is required</p>").insertAfter("#address");
+          isValid = false;
+        }
+
+        // Pincode validation
+        const pincode = $("#pincode").val();
+        if (!pincode || isNaN(pincode) || pincode.length !== 6) {
+          $("<p class='error'>Invalid Pincode (6 digits) is required</p>").insertAfter("#pincode");
+          isValid = false;
+        }
+
+        // Mobile Number validation
+        const mobile = $("#mobile").val();
+        if (!mobile || isNaN(mobile) || mobile.length !== 10) {
+          $("<p class='error'>Invalid Mobile Number (10 digits) is required</p>").insertAfter("#mobile");
+          isValid = false;
+        }
+
+        // Email validation
+        const email = $("#email").val();
+        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if (!email || !email.match(emailPattern)) {
+          $("<p class='error'>Invalid Email Address is required</p>").insertAfter("#email");
+          isValid = false;
+        }
+
+        // Verify checkbox validation
+        if (!$("#verify").prop("checked")) {
+          $("<p class='error'>Please verify all the details</p>").insertAfter("#verify");
+          isValid = false;
+        }
+
+        // If all validations pass, submit the form
+        if (isValid) {
+          alert("Form submitted successfully!");
